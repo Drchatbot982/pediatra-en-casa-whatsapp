@@ -14,8 +14,11 @@ run = "python ../../main.py"
 
 [services.production]
 
+[services.production.build]
+args = ["uv", "sync", "--frozen"]
+
 [services.production.run]
-args = ["python", "../../main.py"]
+args = ["gunicorn", "--chdir", "../..", "--bind", "0.0.0.0:5000", "--workers", "2", "main:app"]
 
 [services.production.run.env]
 PORT = "5000"

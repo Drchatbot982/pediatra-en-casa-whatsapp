@@ -33,6 +33,7 @@ A Flask web application that receives WhatsApp messages from Twilio, stores them
 - The webhook accepts Twilio's standard `application/x-www-form-urlencoded` payload and returns an empty TwiML response.
 - MessageSid is unique so Twilio retries do not create duplicate inbox entries.
 - Signature validation is opt-in for local setup and can be enforced with `TWILIO_VALIDATE_SIGNATURE=true`.
+- Publishing uses a VM deployment because the inbox stores messages in a local SQLite file.
 
 ## Product
 
