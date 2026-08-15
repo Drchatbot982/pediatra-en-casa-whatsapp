@@ -1,0 +1,1 @@
+- [Flask root service routing](flask-root-service.md) — root-served Python apps need the artifact service route; standalone workflows alone do not populate the shared preview router.

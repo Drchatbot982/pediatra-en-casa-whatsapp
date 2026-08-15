@@ -1,44 +1,53 @@
-# [Project name]
+# Twilio WhatsApp Webhook Inbox
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A Flask web application that receives WhatsApp messages from Twilio, stores them in SQLite, and displays a lightweight inbox.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `python main.py` — run the Flask webhook inbox locally
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `TWILIO_AUTH_TOKEN` — optional secret used to validate incoming Twilio signatures
+- `TWILIO_VALIDATE_SIGNATURE=true` — require valid Twilio signatures
+- `TWILIO_WEBHOOK_URL` — optional public webhook URL override for signature validation behind a proxy
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Web: Flask 3
+- DB: SQLite (Python standard library)
+- Runtime: Python 3.11
+- Production server: Gunicorn
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `main.py` — Flask app, Twilio signature validation, SQLite persistence, and JSON API
+- `templates/` — inbox dashboard and error page
+- `static/styles.css` — dashboard presentation
+- `data/messages.db` — local message store, created on first run
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The webhook accepts Twilio's standard `application/x-www-form-urlencoded` payload and returns an empty TwiML response.
+- MessageSid is unique so Twilio retries do not create duplicate inbox entries.
+- Signature validation is opt-in for local setup and can be enforced with `TWILIO_VALIDATE_SIGNATURE=true`.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Receive WhatsApp messages sent to a Twilio number.
+- Persist message body, sender, recipient, profile name, media URLs, and the original payload.
+- View recent messages and basic inbox metrics in a browser.
+- Check service and database health at `/healthz`.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Keep Twilio credentials in Replit Secrets or environment variables; never commit them.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- When signature validation is enabled behind a proxy, set `TWILIO_WEBHOOK_URL` to the exact public URL Twilio calls.
 
 ## Pointers
 

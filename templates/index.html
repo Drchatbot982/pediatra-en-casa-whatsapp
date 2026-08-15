@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Messages · wa.inbox{% endblock %}
+
+{% block content %}
+<header class="topbar">
+  <div>
+    <p class="eyebrow">WhatsApp message receiver</p>
+    <h1>Your inbox, in one place.</h1>
+    <p class="lede">Incoming messages from Twilio appear here as soon as the webhook receives them.</p>
+  </div>
+  <div class="connection-status">
+    <span class="status-dot"></span>
+    Listening
+  </div>
+</header>
+
+<section class="setup-banner">
+  <div class="setup-icon">↗</div>
+  <div class="setup-copy">
+    <span class="eyebrow">Connect Twilio</span>
+    <strong>Set your WhatsApp webhook to</strong>
+    <div class="endpoint-row">
+      <code id="webhook-url">{{ request.host_url.rstrip('/') }}{{ webhook_path }}</code>
+      <button type="button" class="copy-button" onclick="copyEndpoint()">Copy</button>
+    </div>
+  </div>
+  <div class="security-pill {% if validation_enabled and has_auth_token %}secure{% endif %}">
+    <span class="security-dot"></span>
+    {% if validation_enabled and has_auth_token %}
+      Signature validation on
+    {% else %}
+      Signature validation off
+    {% endif %}
+  </div>
+</section>
+
+{% if not validation_enabled or not has_auth_token %}
+<div class="notice">
+  <span class="notice-mark">!</span>
+  <span>
+    For production, set <code>TWILIO_AUTH_TOKEN</code> and
+    <code>TWILIO_VALIDATE_SIGNATURE=true</code> to reject requests that are not from Twilio.
+  </span>
+</div>
+{% endif %}
+
+<section class="stats-grid" aria-label="Inbox summary">
+  <article class="stat-card accent">
+    <span class="stat-label">Messages received</span>
+    <strong>{{ stats.total }}</strong>
+    <span class="stat-foot">All time</span>
+  </article>
+  <article class="stat-card">
+    <span class="stat-label">Unique senders</span>
+    <strong>{{ stats.senders }}</strong>
+    <span class="stat-foot">WhatsApp numbers</span>
+  </article>
+  <article class="stat-card">
+    <span class="stat-label">Media attachments</span>
+    <strong>{{ stats.media }}</strong>
+    <span class="stat-foot">Images and files</span>
+  </article>
+</section>
+
+<section class="messages-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Latest activity</p>
+      <h2>Recent messages</h2>
+    </div>
+    <a class="refresh-link" href="/">Refresh <span>↻</span></a>
+  </div>
+
+  {% if messages %}
+  <div class="message-list">
+    {% for message in messages %}
+    <article class="message-card">
+      <div class="avatar">{{ (message.profile_name or message.sender or "?")[:1].upper() }}</div>
+      <div class="message-main">
+        <div class="message-meta">
+          <div>
+            <strong>{{ message.profile_name or "Unknown sender" }}</strong>
+            <span class="phone">{{ message.sender or "No sender number" }}</span>
+          </div>
+          <time datetime="{{ message.received_at }}">{{ message.received_at|replace("T", " ") }} UTC</time>
+        </div>
+        <p class="message-body">{{ message.body or "Media-only message" }}</p>
+        <div class="message-tags">
+          <span class="tag">{{ message.message_sid }}</span>
+          {% if message.num_media %}
+          <span class="tag media-tag">{{ message.num_media }} media</span>
+          {% endif %}
+          <span class="tag destination">to {{ message.recipient }}</span>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-orbit"><span></span></div>
+    <h3>Waiting for your first message</h3>
+    <p>Send a WhatsApp message to your Twilio number after configuring the webhook above.</p>
+  </div>
+  {% endif %}
+</section>
+
+<script>
+  function copyEndpoint() {
+    const value = document.getElementById("webhook-url").textContent;
+    navigator.clipboard.writeText(value);
+    const button = document.querySelector(".copy-button");
+    button.textContent = "Copied";
+    setTimeout(() => (button.textContent = "Copy"), 1600);
+  }
+</script>
+{% endblock %}
