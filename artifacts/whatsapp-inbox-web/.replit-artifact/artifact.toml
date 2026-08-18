@@ -1,13 +1,15 @@
-kind = "api"
-previewPath = "/api-server/"
-title = "Internal Flask Service"
+kind = "web"
+previewPath = "/"
+title = "Twilio WhatsApp Inbox"
+description = "A publishable Flask web app that receives standard Twilio WhatsApp Sandbox webhook requests, stores messages locally, and displays them in an inbox."
 version = "1.0.0"
-id = "3B4_FFSkEVBkAeYMFRJ2e"
+id = "artifacts/whatsapp-inbox-web"
+router = "path"
 
 [[services]]
+name = "web"
+paths = ["/"]
 localPort = 5000
-name = "Internal Flask Service"
-paths = ["/api-server"]
 
 [services.development]
 run = "python ../../main.py"
@@ -25,3 +27,6 @@ PORT = "5000"
 
 [services.production.health.startup]
 path = "/healthz"
+
+[services.env]
+PORT = "5000"
