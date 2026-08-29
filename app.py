@@ -12,6 +12,7 @@ from typing import Any
 
 from flask import Flask, Response, jsonify, render_template, request
 from werkzeug.middleware.proxy_fix import ProxyFix
+from openai import OpenAI
 
 
 BASE_DIR = Path(__file__).resolve().parent
