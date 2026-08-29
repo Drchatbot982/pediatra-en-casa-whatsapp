@@ -205,7 +205,7 @@ def whatsapp_webhook() -> Response:
         return jsonify({"error": "Expected Twilio form-encoded payload"}), 400
 
     save_message(payload)
-    return Response("<Response></Response>", mimetype="application/xml")
+    return Response("<Response><Message>Hola, soy el doctor Sebastián.</Message></Response>", mimetype="application/xml")
 
 
 @app.errorhandler(404)
