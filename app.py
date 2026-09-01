@@ -209,15 +209,15 @@ def whatsapp_webhook() -> Response:
     message = str(payload.get("Body") or "").strip()
     if not message:
             message = "Hola"
-        try:
+    try:
                 response = client.responses.create(
                             model="gpt-5.2",
                             input=message,
                         )
                 reply = response.output_text
-            except Exception:
+    except Exception:
                     reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
-                reply = reply.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+                    reply = reply.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     return Response("<Response><Message>{reply}</Message></Response>", mimetype="application/xml")
     
 
