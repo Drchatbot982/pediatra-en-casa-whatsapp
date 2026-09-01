@@ -22,6 +22,7 @@ DATABASE_PATH = Path(
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
+client = OpenAI()
 
 
 def get_connection() -> sqlite3.Connection:
@@ -205,7 +206,20 @@ def whatsapp_webhook() -> Response:
         return jsonify({"error": "Expected Twilio form-encoded payload"}), 400
 
     save_message(payload)
-    return Response("<Response><Message>Hola, soy el doctor Sebastián.</Message></Response>", mimetype="application/xml")
+    message = str(payload.get("Body") or "").strip()
+    if not message:
+            message = "Hola"
+        try:
+                response = client.responses.create(
+                            model="gpt-5.2",
+                            input=message,
+                        )
+                reply = response.output_text
+            except Exception:
+                    reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
+                reply = reply.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    return Response("<Response><Message>{reply}</Message></Response>", mimetype="application/xml")
+    
 
 
 @app.errorhandler(404)
