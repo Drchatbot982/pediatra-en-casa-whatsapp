@@ -218,7 +218,7 @@ def whatsapp_webhook() -> Response:
     except Exception as e:
                     print(f"OpenAI error: {e}")
                     reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
-                    reply = reply.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    reply = reply.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
     return Response(f"<Response><Message>{reply}</Message></Response>", mimetype="application/xml")
     
 
