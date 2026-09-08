@@ -24,6 +24,10 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 client = OpenAI()
 
+SYSTEM_PROMPT = """
+Eres el Dr. Sebastián, asistente virtual de Pediatra en Casa.
+"""
+
 
 def get_connection() -> sqlite3.Connection:
     DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
