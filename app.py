@@ -216,6 +216,7 @@ def whatsapp_webhook() -> Response:
     try:
                 response = client.responses.create(
                             model="gpt-5.2",
+                            instructions=SYSTEM_PROMPT,
                             input=message,
                         )
                 reply = response.output_text
