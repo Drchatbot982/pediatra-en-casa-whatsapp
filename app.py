@@ -485,6 +485,7 @@ def whatsapp_webhook() -> Response:
                             model="gpt-5-mini",
                             instructions=SYSTEM_PROMPT,
                             input=message,
+                            max_output_tokens=300,
                         )
                 reply = response.output_text
     except Exception as e:
