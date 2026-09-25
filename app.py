@@ -901,6 +901,7 @@ def whatsapp_webhook() -> Response:
                             max_output_tokens=300,
                         )
                 reply = response.output_text or "No pude generar una respuesta. Por favor, intenta nuevamente."
+                print(f"OpenAI reply length: {len(response.output_text or '')}")
     except Exception as e:
                     print(f"OpenAI error: {e}")
                     reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
