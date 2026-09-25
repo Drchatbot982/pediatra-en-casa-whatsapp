@@ -898,7 +898,7 @@ def whatsapp_webhook() -> Response:
                             model="gpt-5-mini",
                             instructions=SYSTEM_PROMPT,
                             input=message,
-                            max_output_tokens=300,
+                            max_output_tokens=1000,
                         )
                 reply = response.output_text or "No pude generar una respuesta. Por favor, intenta nuevamente."
                 print(f"OpenAI reply length: {len(response.output_text or '')}")
