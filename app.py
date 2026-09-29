@@ -894,6 +894,20 @@ def whatsapp_webhook() -> Response:
     message = str(payload.get("Body") or "").strip()
     if not message:
             message = "Hola"
+    def process_whatsapp_message(payload, message):
+        try:
+            response = client.responses.create(
+        model="gpt-5-mini",
+        instructions=SYSTEM_PROMPT,
+        input=message,
+        max_output_tokens=1000,
+    )
+            reply = response.output_text or "No pude generar una respuesta. Por favor, intenta nuevamente."
+            print(f"OpenAI reply length: {len(response.output_text or '')}")
+        except Exception as e:
+            print(f"OpenAI error: {e}")
+            reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
+            
     threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
     return Response("<Response></Response>", mimetype="application/xml")
     
