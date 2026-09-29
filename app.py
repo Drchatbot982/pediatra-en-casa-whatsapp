@@ -14,6 +14,7 @@ from typing import Any
 from flask import Flask, Response, jsonify, render_template, request
 from werkzeug.middleware.proxy_fix import ProxyFix
 from openai import OpenAI
+from twilio.rest import Client
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -907,7 +908,12 @@ def whatsapp_webhook() -> Response:
         except Exception as e:
             print(f"OpenAI error: {e}")
             reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
-            
+        account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
+        auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+        to_number = payload.get("From")
+        from_number = payload.get("To")
+        twilio_client = Client(account_sid, auth_token)
+        twilio_client.messages.create(body=reply, from_=from_number, to=to_number)
     threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
     return Response("<Response></Response>", mimetype="application/xml")
     
