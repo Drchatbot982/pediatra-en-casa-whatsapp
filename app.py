@@ -995,7 +995,20 @@ def whatsapp_webhook() -> Response:
         to_number = payload.get("From")
         from_number = payload.get("To")
         twilio_client = Client(account_sid, auth_token)
-        twilio_client.messages.create(body=reply, from_=from_number, to=to_number)
+        sent_message = twilio_client.messages.create(
+        body=reply,
+        from_=from_number,
+        to=to_number
+)
+
+save_message({
+    "MessageSid": sent_message.sid,
+    "From": from_number,
+    "To": to_number,
+    "Body": reply,
+    "ProfileName": "Dr. Sebastián",
+    "NumMedia": "0",
+})
     threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
     return Response("<Response></Response>", mimetype="application/xml")
     
