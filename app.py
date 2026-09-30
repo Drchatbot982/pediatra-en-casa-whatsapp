@@ -896,6 +896,7 @@ def whatsapp_webhook() -> Response:
     if not message:
             message = "Hola"
     def process_whatsapp_message(payload, message):
+        print("BACKGROUND THREAD STARTED", flush=True)
         try:
             response = client.responses.create(
         model="gpt-5-mini",
