@@ -1009,8 +1009,8 @@ save_message({
     "ProfileName": "Dr. Sebastián",
     "NumMedia": "0",
 })
-    threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
-    return Response("<Response></Response>", mimetype="application/xml")
+threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
+return Response("<Response></Response>", mimetype="application/xml")
     
 
 
