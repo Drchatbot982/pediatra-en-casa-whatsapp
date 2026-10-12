@@ -1001,16 +1001,17 @@ def whatsapp_webhook() -> Response:
         to=to_number
 )
 
-save_message({
-    "MessageSid": sent_message.sid,
-    "From": from_number,
-    "To": to_number,
-    "Body": reply,
-    "ProfileName": "Dr. Sebastián",
-    "NumMedia": "0",
-})
-threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
-return Response("<Response></Response>", mimetype="application/xml")
+        save_message({
+            "MessageSid": sent_message.sid,
+            "From": from_number,
+            "To": to_number,
+            "Body": reply,
+            "ProfileName": "Dr. Sebastián",
+            "NumMedia": "0",
+        })
+
+    threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
+    return Response("<Response></Response>", mimetype="application/xml")
     
 
 
