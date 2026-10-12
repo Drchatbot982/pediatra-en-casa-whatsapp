@@ -978,12 +978,39 @@ def whatsapp_webhook() -> Response:
     def process_whatsapp_message(payload, message):
         print("BACKGROUND THREAD STARTED", flush=True)
         try:
-            response = client.responses.create(
-        model="gpt-5-mini",
-        instructions=SYSTEM_PROMPT,
-        input=message,
-        max_output_tokens=1000,
-    )
+                    user_number = payload.get("From")
+        bot_number = payload.get("To")
+
+        with get_connection() as connection:
+            rows = connection.execute(
+                """
+                SELECT sender, recipient, body
+                FROM (
+                    SELECT id, sender, recipient, body
+                    FROM messages
+                    WHERE (sender = ? AND recipient = ?)
+                       OR (sender = ? AND recipient = ?)
+                    ORDER BY id DESC
+                    LIMIT 12
+                )
+                ORDER BY id ASC
+                """,
+                (user_number, bot_number, bot_number, user_number),
+            ).fetchall()
+
+        conversation = []
+        for row in rows:
+            body = (row["body"] or "").strip()
+            if body:
+                role = "user" if row["sender"] == user_number else "assistant"
+                conversation.append({"role": role, "content": body})
+
+        response = client.responses.create(
+            model="gpt-5-mini",
+            instructions=SYSTEM_PROMPT,
+            input=conversation,
+            max_output_tokens=1000,
+        )
             reply = response.output_text or "No pude generar una respuesta. Por favor, intenta nuevamente."
             print(f"OpenAI reply length: {len(response.output_text or '')}")
             print(f"OpenAI status: {response.status}, incomplete_details: {response.incomplete_details}")
