@@ -982,22 +982,22 @@ def whatsapp_webhook() -> Response:
                     bot_number = payload.get("To")
 
                     with get_connection() as connection:
-                    rows = connection.execute(
-                        """
-                        SELECT sender, recipient, body
-                        FROM (
-                            SELECT id, sender, recipient, body
-                            FROM messages
-                            WHERE (sender = ? AND recipient = ?)
-                               OR (sender = ? AND recipient = ?)
-                            ORDER BY id DESC
-                            LIMIT 12
-                        )
-                        ORDER BY id ASC
-                        """,
-                        (user_number, bot_number, bot_number, user_number),
-                    ).fetchall()
-        
+                        rows = connection.execute(
+                            """
+                            SELECT sender, recipient, body
+                            FROM (
+                                SELECT id, sender, recipient, body
+                                FROM messages
+                                WHERE (sender = ? AND recipient = ?)
+                                   OR (sender = ? AND recipient = ?)
+                                ORDER BY id DESC
+                                LIMIT 12
+                            )
+                            ORDER BY id ASC
+                            """,
+                            (user_number, bot_number, bot_number, user_number),
+                        ).fetchall()
+            
                 conversation = []
                 for row in rows:
                     body = (row["body"] or "").strip()
