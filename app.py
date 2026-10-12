@@ -981,7 +981,7 @@ def whatsapp_webhook() -> Response:
                     user_number = payload.get("From")
                     bot_number = payload.get("To")
 
-                with get_connection() as connection:
+                    with get_connection() as connection:
                     rows = connection.execute(
                         """
                         SELECT sender, recipient, body
