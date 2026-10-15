@@ -977,7 +977,7 @@ def whatsapp_webhook() -> Response:
             message = "Hola"
     def process_whatsapp_message(payload, message):
         print("BACKGROUND THREAD STARTED", flush=True)
-                try:
+        try:
             user_number = payload.get("From")
             bot_number = payload.get("To")
 
