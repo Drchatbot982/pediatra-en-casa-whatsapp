@@ -1004,7 +1004,7 @@ def whatsapp_webhook() -> Response:
                 if body:
                     role = "user" if row["sender"] == user_number else "assistant"
                     conversation.append({"role": role, "content": body})
-
+            print(f"HISTORY SENT TO OPENAI ({len(conversation)} messages): {conversation}", flush=True)
             response = client.responses.create(
                 model="gpt-5-mini",
                 instructions=SYSTEM_PROMPT,
