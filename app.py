@@ -991,7 +991,7 @@ def whatsapp_webhook() -> Response:
                         WHERE (sender = ? AND recipient = ?)
                            OR (sender = ? AND recipient = ?)
                         ORDER BY id DESC
-                        LIMIT 12
+                        LIMIT 48
                     )
                     ORDER BY id ASC
                     """,
