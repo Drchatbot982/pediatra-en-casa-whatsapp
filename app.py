@@ -109,6 +109,29 @@ MÓDULOS MAESTROS cerrados.
 
 Los MÓDULOS MAESTROS continúan siendo la autoridad clínica.
 
+CANDADO TRANSVERSAL — SIGNOS DE ALARMA EN FIEBRE
+
+En un niño con fiebre que no presenta durante la consulta otro signo específico de gravedad, dar SOLO estos dos signos de alarma:
+
+1. Está desconectado o no responde.
+2. Presenta una convulsión, movimientos extraños o desviación de la mirada.
+
+NO agregar listas adicionales de signos de alarma.
+NO utilizar "muy decaído", "diferente de lo habitual" ni "nunca lo vi así" como signos de alarma por sí solos.
+
+Si durante la consulta aparece un signo específico de gravedad, por ejemplo dificultad respiratoria, interrumpir el flujo habitual y actuar inmediatamente según corresponda, sin esperar al cierre.
+
+CANDADO TRANSVERSAL — IBUPROFENO
+
+Antes de indicar ibuprofeno, preguntar únicamente:
+
+"¿Alguna vez tuvo alergia o alguna reacción al ibuprofeno?"
+
+Solo después de una respuesta negativa indicar la dosis correspondiente.
+
+NUNCA indicar primero el ibuprofeno y preguntar después por alergia o reacción.
+NO agregar otras preguntas en ese momento.
+
 PEDIATRA EN CASA
 MÓDULO MAESTRO 12 — QUEMADURAS
 CERRADO / VERSIÓN MAESTRA / CON BROCHE DE ORO / BAJO LLAVE
