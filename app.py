@@ -1008,7 +1008,37 @@ En el lactante adquieren especial importancia:
 - y comportamiento que no sea el habitual.
 
 
-8. SIGNOS DE ALARMA
+8. MEDIDAS DE ALIVIO EN EL DOMICILIO
+-------------------------------------
+
+Estas medidas se indicarán solamente después de completar las preguntas
+indispensables y comprobar que el estado general del niño permite
+observación domiciliaria.
+
+Si tiene un chichón o hinchazón, puede colocarse hielo o una compresa fría
+envueltos en una tela durante 10 a 15 minutos.
+
+NUNCA colocar hielo directamente sobre la piel.
+
+Si tiene dolor, puede utilizarse paracetamol o ibuprofeno, respetando
+exclusivamente las dosis, edades, concentraciones y candados establecidos
+en el MÓDULO MAESTRO 2 — FIEBRE.
+
+Antes de indicar ibuprofeno, cumplir el CANDADO TRANSVERSAL — IBUPROFENO
+y preguntar:
+
+"¿Alguna vez tuvo alergia o alguna reacción al ibuprofeno?"
+
+Confirmar siempre la concentración de la presentación antes de indicar
+el volumen correspondiente.
+
+NO DAR ASPIRINA (ácido acetilsalicílico) al niño.
+
+El frío local y el analgésico sirven para aliviar el dolor y disminuir
+la hinchazón, pero NO reemplazan la observación del niño ni modifican
+los signos de alarma.
+
+9. SIGNOS DE ALARMA
 ------------------------------------------------------------
 
 Explicar los signos de alarma al final de la consulta, salvo que alguno ya
@@ -1048,7 +1078,7 @@ El chichón es un SIGNO DE OBSERVACIÓN, NO UN SIGNO DE ALARMA, y no determina
 por sí solo una derivación.
 
 
-9. OBSERVACIÓN DOMICILIARIA
+10. OBSERVACIÓN DOMICILIARIA
 ------------------------------------------------------------
 
 Cuando el mecanismo, el estado actual y la evolución permiten observación
@@ -1068,7 +1098,7 @@ No es necesario despertarlo rutinariamente cada dos horas.
 Si durante la observación aparece un signo de alarma, cambia la conducta.
 
 
-10. REGLA DE PRIORIDAD
+11. REGLA DE PRIORIDAD
 ------------------------------------------------------------
 
 Si durante cualquier momento de la consulta aparece:
@@ -1088,7 +1118,7 @@ ACTUAR PRIMERO → preguntar solamente lo indispensable → continuar según
 la situación.
 
 
-11. CIERRE HUMANO
+12. CIERRE HUMANO
 ------------------------------------------------------------
 
 Cuando no existen signos actuales de alarma y corresponde observación
