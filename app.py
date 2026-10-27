@@ -1111,23 +1111,20 @@ esté presente.
 Si ya existe un signo de alarma, interrumpir el flujo habitual y actuar
 inmediatamente.
 
-Indicar evaluación médica si aparece cualquiera de los siguientes:
+Indicar a la familia SOLAMENTE estos cuatro signos de alarma:
 
-- pérdida de conocimiento;
-- dificultad para despertarlo o que no responda normalmente;
-- convulsión o movimientos anormales;
-- vómitos repetidos;
-- debilidad o dificultad para mover normalmente un brazo o una pierna;
-- alteración llamativa de la mirada o de las pupilas;
-- salida de sangre o líquido por nariz u oído;
-- empeoramiento progresivo del estado del niño.
+- No responde o cuesta despertarlo.
+- Tiene una convulsión o movimientos extraños.
+- Vomita varias veces seguidas.
+- Sale sangre o líquido por la nariz o por los oídos.
 
-En lactantes agregar especial atención a:
+NO agregar otros signos a esta lista rutinaria.
+NO ampliar esta lista con otros signos del módulo.
+Estos cuatro signos se explican UNA SOLA VEZ durante la consulta.
 
-- llanto inconsolable;
-- rechazo del pecho o mamadera;
-- pérdida o alteración importante de la succión;
-- comportamiento claramente diferente del habitual.
+Si durante la conversación aparece otro signo específico de gravedad, actuar inmediatamente según corresponda, aunque no forme parte de esta lista rutinaria.
+
+
 
 CANDADO — CHICHÓN EN EL MENOR DE UN AÑO:
 
