@@ -26,6 +26,8 @@ app = Flask(__name__)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 client = OpenAI()
 
+processing_lock = threading.Lock()
+
 SYSTEM_PROMPT = """
 Eres el Dr. Sebastián, de Pediatra en Casa.
 ============================================================
@@ -1557,6 +1559,8 @@ def whatsapp_webhook() -> Response:
     if not message:
             message = "Hola"
     def process_whatsapp_message(payload, message):
+        
+        with processing_lock:
         print("BACKGROUND THREAD STARTED", flush=True)
         try:
             user_number = payload.get("From")
@@ -1617,7 +1621,8 @@ def whatsapp_webhook() -> Response:
             "ProfileName": "Dr. Sebastián",
             "NumMedia": "0",
         })
-
+        
+        
     threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
     return Response("<Response></Response>", mimetype="application/xml")
     
