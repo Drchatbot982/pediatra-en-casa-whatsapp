@@ -1561,14 +1561,14 @@ def whatsapp_webhook() -> Response:
     def process_whatsapp_message(payload, message):
         
         with processing_lock:
-        print("BACKGROUND THREAD STARTED", flush=True)
-        try:
-            user_number = payload.get("From")
-            bot_number = payload.get("To")
+            print("BACKGROUND THREAD STARTED", flush=True)
+            try:
+                user_number = payload.get("From")
+                bot_number = payload.get("To")
 
-            with get_connection() as connection:
-                rows = connection.execute(
-                    """
+                with get_connection() as connection:
+                    rows = connection.execute(
+                        """
                     SELECT sender, recipient, body
                     FROM (
                         SELECT id, sender, recipient, body
@@ -1583,44 +1583,44 @@ def whatsapp_webhook() -> Response:
                     (user_number, bot_number, bot_number, user_number),
                 ).fetchall()
 
-            conversation = []
-            for row in rows:
-                body = (row["body"] or "").strip()
-                if body:
-                    role = "user" if row["sender"] == user_number else "assistant"
-                    conversation.append({"role": role, "content": body})
-            print(f"HISTORY SENT TO OPENAI ({len(conversation)} messages): {conversation}", flush=True)
-            response = client.responses.create(
-                model="gpt-5-mini",
-                instructions=SYSTEM_PROMPT,
-                input=conversation,
-                max_output_tokens=3000,
-            )
-            reply = response.output_text or "No pude generar una respuesta. Por favor, intenta nuevamente."
-            print(f"OpenAI reply length: {len(response.output_text or '')}")
-            print(f"OpenAI status: {response.status}, incomplete_details: {response.incomplete_details}")
-        except Exception as e:
-            print(f"OpenAI error: {e}")
-            reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
+                conversation = []
+                for row in rows:
+                    body = (row["body"] or "").strip()
+                    if body:
+                        role = "user" if row["sender"] == user_number else "assistant"
+                        conversation.append({"role": role, "content": body})
+                print(f"HISTORY SENT TO OPENAI ({len(conversation)} messages): {conversation}", flush=True)
+                response = client.responses.create(
+                    model="gpt-5-mini",
+                    instructions=SYSTEM_PROMPT,
+                    input=conversation,
+                    max_output_tokens=3000,
+                )
+                reply = response.output_text or "No pude generar una respuesta. Por favor, intenta nuevamente."
+                print(f"OpenAI reply length: {len(response.output_text or '')}")
+                print(f"OpenAI status: {response.status}, incomplete_details: {response.incomplete_details}")
+            except Exception as e:
+                print(f"OpenAI error: {e}")
+                reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
         account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
-        auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
-        to_number = payload.get("From")
-        from_number = payload.get("To")
-        twilio_client = Client(account_sid, auth_token)
-        sent_message = twilio_client.messages.create(
-        body=reply,
-        from_=from_number,
-        to=to_number
-)
+            auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+            to_number = payload.get("From")
+            from_number = payload.get("To")
+            twilio_client = Client(account_sid, auth_token)
+            sent_message = twilio_client.messages.create(
+            body=reply,
+            from_=from_number,
+            to=to_number
+    )
 
-        save_message({
-            "MessageSid": sent_message.sid,
-            "From": from_number,
-            "To": to_number,
-            "Body": reply,
-            "ProfileName": "Dr. Sebastián",
-            "NumMedia": "0",
-        })
+            save_message({
+                "MessageSid": sent_message.sid,
+                "From": from_number,
+                "To": to_number,
+                "Body": reply,
+                "ProfileName": "Dr. Sebastián",
+                "NumMedia": "0",
+            })
         
         
     threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
