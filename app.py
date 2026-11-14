@@ -1603,24 +1603,24 @@ def whatsapp_webhook() -> Response:
                 print(f"OpenAI error: {e}")
                 reply = "En este momento no puedo responder. Por favor, intenta nuevamente en unos minutos."
         account_sid = os.environ.get("TWILIO_ACCOUNT_SID")
-            auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
-            to_number = payload.get("From")
-            from_number = payload.get("To")
-            twilio_client = Client(account_sid, auth_token)
-            sent_message = twilio_client.messages.create(
-            body=reply,
-            from_=from_number,
-            to=to_number
-    )
+        auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
+        to_number = payload.get("From")
+        from_number = payload.get("To")
+        twilio_client = Client(account_sid, auth_token)
+        sent_message = twilio_client.messages.create(
+        body=reply,
+        from_=from_number,
+        to=to_number
+)
 
-            save_message({
-                "MessageSid": sent_message.sid,
-                "From": from_number,
-                "To": to_number,
-                "Body": reply,
-                "ProfileName": "Dr. Sebastián",
-                "NumMedia": "0",
-            })
+        save_message({
+            "MessageSid": sent_message.sid,
+            "From": from_number,
+            "To": to_number,
+            "Body": reply,
+            "ProfileName": "Dr. Sebastián",
+            "NumMedia": "0",
+        })
         
         
     threading.Thread(target=process_whatsapp_message, args=(payload, message), daemon=True).start()
