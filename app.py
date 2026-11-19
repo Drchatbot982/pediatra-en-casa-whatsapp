@@ -27,6 +27,8 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_port=1)
 client = OpenAI()
 
 processing_lock = threading.Lock()
+MODULO_3_PATH = BASE_DIR / "Pediatra_en_Casa_Modulo_03_Diarrea_Maestro.md"
+MODULO_3_TEXTO = MODULO_3_PATH.read_text(encoding="utf-8")
 
 SYSTEM_PROMPT = """
 Eres el Dr. Sebastián, de Pediatra en Casa.
@@ -1628,6 +1630,7 @@ FIN DEL MÓDULO MAESTRO 8 — GOLPE DE CABEZA / TRAUMATISMO CRANEOENCEFÁLICO
 VERSIÓN RECONSTRUIDA Y REVISADA
 ============================================================
 """
+SYSTEM_PROMPT += "\n\n" + MODULO_3_TEXTO
 
 
 def get_connection() -> sqlite3.Connection:
