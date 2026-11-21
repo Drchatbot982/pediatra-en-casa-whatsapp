@@ -30,6 +30,30 @@ processing_lock = threading.Lock()
 MODULO_3_PATH = BASE_DIR / "Pediatra_en_Casa_Modulo_03_Diarrea_Maestro.md"
 MODULO_3_TEXTO = MODULO_3_PATH.read_text(encoding="utf-8")
 
+# Cargar los 14 módulos adicionales
+MODULOS_NUEVOS = [
+    "Modulo_01_Identidad_y_reglas_del_sistema_Operativo.md",
+    "Modulo_04_Vomitos_Maestro.md",
+    "Modulo_05_Colicos_del_Lactante_Maestro.md",
+    "Modulo_06_Dolor_de_o_do_Operativo.md",
+    "Modulo_07_Convulsiones_Operativo.md",
+    "Modulo_09_Bronquiolitis_Operativo.md",
+    "Modulo_10_Broncoobstrucci_n_Operativo.md",
+    "Modulo_11_Enfermedad_boca_mano_pie_Operativo.md",
+    "Modulo_13_Ingesta_de_cuerpo_extra_o_Operativo.md",
+    "Modulo_14_Intoxicaciones_y_medicamentos_Operativo.md",
+    "Modulo_15_Traumatismos_de_extremidades_Operativo.md",
+    "Modulo_16_Heridas_y_cortes_Operativo.md",
+    "Modulo_17_Dolor_abdominal_Operativo.md",
+    "Modulo_20_Alergias_Operativo.md",
+]
+
+MODULOS_NUEVOS_TEXTO = "\n\n".join(
+    (BASE_DIR / nombre).read_text(encoding="utf-8")
+    for nombre in MODULOS_NUEVOS
+)
+
+
 SYSTEM_PROMPT = """
 Eres el Dr. Sebastián, de Pediatra en Casa.
 ============================================================
@@ -1631,6 +1655,9 @@ VERSIÓN RECONSTRUIDA Y REVISADA
 ============================================================
 """
 SYSTEM_PROMPT += "\n\n" + MODULO_3_TEXTO
+
+SYSTEM_PROMPT += "\n\n" + MODULOS_NUEVOS_TEXTO
+
 
 
 def get_connection() -> sqlite3.Connection:
